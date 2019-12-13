@@ -29,8 +29,6 @@ for (i in 1:length(js)) {
 }
 results$LD=results$`Lib Dem`
 m=merge(results, mrp, by.x="code", by.y="dec.code")
-m$conLead=m$Con-m$Lab
-m$predConLead=m$dec.Con-m$dec.Lab
 parties=c("Con","Lab","LD","Green","Brexit")
 pred_ratio=as.data.frame(sapply(parties, function(x) m[,x]-m[,paste0("dec.",x)]))
 pred_ratio$constituency=m$dec.constituency

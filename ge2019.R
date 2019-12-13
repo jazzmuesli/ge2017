@@ -11,6 +11,7 @@ names(dec)=paste0("dec.", names(dec))
 mrp=merge(dec,nov,by.y=c("nov.code"),by.x=c("dec.code"))
 mrp=mrp[,grep("nov.constit", names(mrp), invert = T)]
 
+# https://www.theguardian.com/politics/ng-interactive/2019/dec/12/uk-general-election-2019-full-results-live-labour-conservatives-tories
 js=rjson::fromJSON(file="https://interactive.guim.co.uk/2019/12/ukelection2019-data/prod/snap/full.json")
 results=data.frame()
 for (i in 1:length(js)) {

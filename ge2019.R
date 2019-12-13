@@ -33,5 +33,6 @@ parties=c("Con","Lab","LD","Green","Brexit")
 pred_ratio=as.data.frame(sapply(parties, function(x) m[,x]-m[,paste0("dec.",x)]))
 pred_ratio$constituency=m$dec.constituency
 ggplot(melt(pred_ratio[,parties]), aes(x=variable,y=value))+geom_boxplot()+ggtitle(paste0(nrow(pred_ratio)," constituencies declared"))+xlab("Party")+ylab("Absolute actual-predicted YG Dec MRP vote share")
+ggplot(melt(m[,parties]), aes(x=variable,y=value))+geom_boxplot()+ggtitle(paste0(nrow(pred_ratio)," constituencies declared"))+xlab("Party")+ylab("Absolute actual  vote share")
 summary(pred_ratio[,parties])
 write.csv(x=m, file="combined.csv", row.names = F)

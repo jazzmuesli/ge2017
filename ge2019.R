@@ -23,16 +23,16 @@ for (i in 1:length(js)) {
      party=x$candidates[[j]]
      parties[,party$party]=party$percentageShare
    }
-   parties=cbind(parties, as.data.frame(x)[,c("mtime","turnout","majority","electorate","percentageTurnout","percentageChangeTurnout","swing","lastPercentageMajority","sittingParty","winningParty")])
+   parties=cbind(parties, as.data.frame(x)[,c("name","mtime","turnout","majority","electorate","percentageTurnout","percentageChangeTurnout","swing","lastPercentageMajority","sittingParty","winningParty")])
    results=rbind.fill(results, parties)
  }
 }
 results$LD=results$`Lib Dem`
-m=merge(results, mrp, by.x="code", by.y="dec.code")
-parties=c("Con","Lab","LD","Green","Brexit")
+m=merge(results, mrp, by.x="code", by.y="dec.code",all.x=T)
+parties=c("Con","Lab","LD","Green","Brexit","SNP")
 pred_ratio=as.data.frame(sapply(parties, function(x) m[,x]-m[,paste0("dec.",x)]))
 pred_ratio$constituency=m$dec.constituency
-ggplot(melt(pred_ratio[,parties]), aes(x=variable,y=value))+geom_boxplot()+ggtitle(paste0(nrow(pred_ratio)," constituencies declared"))+xlab("Party")+ylab("Absolute actual-predicted YG Dec MRP vote share")
+ggplot(melt(pred_ratio[,parties]), aes(x=variable,y=value))+geom_boxplot()+ggtitle(paste0(nrow(pred_ratio)," constituencies declared"))+xlab("Party")+ylab("Absolute actual-predicted YG Dec MRP vote share %")
 ggplot(melt(m[,parties]), aes(x=variable,y=value))+geom_boxplot()+ggtitle(paste0(nrow(pred_ratio)," constituencies declared"))+xlab("Party")+ylab("Absolute actual  vote share")
 summary(pred_ratio[,parties])
 write.csv(x=m, file="combined.csv", row.names = F)
